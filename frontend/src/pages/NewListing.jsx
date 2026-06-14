@@ -10,7 +10,16 @@ const UNITS = ["servings", "kg", "items", "loaves", "trays"];
 const ALLERGENS = ["gluten", "dairy", "nuts", "eggs", "soy", "shellfish"];
 const DIETARY = ["vegetarian", "vegan", "gluten-free", "halal", "kosher"];
 
-const SAMPLE_IMG = "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000";
+// Category-specific default photos (Hyderabad / South Asian food bias for our demo region)
+const CATEGORY_PHOTOS = {
+  produce: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000",
+  bakery: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1000",
+  prepared_meals: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1000",
+  dairy: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&q=80&w=1000",
+  pantry: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=1000",
+  beverages: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&q=80&w=1000",
+  other: "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=1000",
+};
 
 export default function NewListing() {
   const nav = useNavigate();
@@ -23,7 +32,7 @@ export default function NewListing() {
     quantity: 5,
     unit: "servings",
     storage_condition: "ambient",
-    photo_url: SAMPLE_IMG,
+    photo_url: CATEGORY_PHOTOS.produce,
     pickup_address: "",
     allergens: [],
     dietary: [],
@@ -31,10 +40,21 @@ export default function NewListing() {
     pickup_end: fmtDT(new Date(now.getTime() + 4 * 60 * 60 * 1000)),
     expiry_time: fmtDT(new Date(now.getTime() + 8 * 60 * 60 * 1000)),
     safety_acknowledged: true,
+    photo_touched: false, // tracks if user manually edited photo URL
   });
   const [loading, setLoading] = useState(false);
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  const onCategoryChange = (e) => {
+    const cat = e.target.value;
+    setForm((f) => ({
+      ...f,
+      category: cat,
+      // auto-update photo unless user customized it
+      photo_url: f.photo_touched ? f.photo_url : (CATEGORY_PHOTOS[cat] || f.photo_url),
+    }));
+  };
+  const onPhotoChange = (e) => setForm({ ...form, photo_url: e.target.value, photo_touched: true });
   const toggleArr = (k, v) => () =>
     setForm({ ...form, [k]: form[k].includes(v) ? form[k].filter((x) => x !== v) : [...form[k], v] });
 
@@ -88,7 +108,7 @@ export default function NewListing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="label">Category</label>
-              <select value={form.category} onChange={set("category")} className="input" data-testid="form-category">
+              <select value={form.category} onChange={onCategoryChange} className="input" data-testid="form-category">
                 {CATEGORIES.map((c) => <option key={c} value={c}>{c.replace("_", " ")}</option>)}
               </select>
             </div>
@@ -161,8 +181,25 @@ export default function NewListing() {
             </div>
           </div>
           <div>
-            <label className="label">Photo URL (optional)</label>
-            <input value={form.photo_url} onChange={set("photo_url")} className="input" />
+            <label className="label">Photo</label>
+            <div className="flex gap-4 items-start">
+              <div className="w-32 h-24 rounded-2xl overflow-hidden bg-[#EAE2D3] shrink-0 border border-[#2A1B24]/10">
+                {form.photo_url && (
+                  <img
+                    src={form.photo_url}
+                    alt="preview"
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.style.display = "none"; }}
+                  />
+                )}
+              </div>
+              <div className="flex-1">
+                <input value={form.photo_url} onChange={onPhotoChange} className="input" data-testid="form-photo" placeholder="Paste image URL or use default" />
+                <div className="text-xs text-[#695A62] mt-2">
+                  Auto-suggests a photo based on category. Customize anytime.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

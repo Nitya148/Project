@@ -175,10 +175,17 @@ export default function ListingDetail() {
 
       {/* Request modal */}
       {showRequest && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2A1B24]/40 p-4" onClick={() => setShowRequest(false)}>
-          <div className="bg-[#FDFBF7] rounded-3xl p-8 max-w-md w-full" onClick={(e) => e.stopPropagation()} data-testid="request-modal">
-            <h2 className="font-serif text-2xl">Request listing</h2>
-            <p className="text-sm text-[#695A62] mt-1">How much can you collect?</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2A1B24]/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={() => setShowRequest(false)}>
+          <div className="bg-[#FDFBF7] rounded-3xl p-8 max-w-md w-full shadow-2xl my-auto" onClick={(e) => e.stopPropagation()} data-testid="request-modal">
+            <div className="flex items-start justify-between">
+              <div>
+                <h2 className="font-serif text-3xl leading-tight">Request listing</h2>
+                <p className="text-sm text-[#695A62] mt-1">How much can you collect?</p>
+              </div>
+              <button onClick={() => setShowRequest(false)} className="btn-ghost !p-2 !px-2 -mr-2 -mt-2" aria-label="Close">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
             <div className="mt-6 space-y-4">
               <div>
                 <label className="label">Quantity ({listing.unit})</label>

@@ -131,8 +131,8 @@ export default function Requests() {
 
       {/* PIN modal */}
       {confirmFor && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2A1B24]/40 p-4" onClick={() => setConfirmFor(null)}>
-          <div className="bg-[#FDFBF7] rounded-3xl p-8 max-w-sm w-full" onClick={(e) => e.stopPropagation()} data-testid="confirm-modal">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2A1B24]/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={() => setConfirmFor(null)}>
+          <div className="bg-[#FDFBF7] rounded-3xl p-8 max-w-sm w-full shadow-2xl my-auto" onClick={(e) => e.stopPropagation()} data-testid="confirm-modal">
             <KeyRound className="w-7 h-7 text-[#C85A40]" />
             <h2 className="font-serif text-2xl mt-4">Confirm pickup</h2>
             <p className="text-sm text-[#695A62] mt-1">Enter the 4-digit PIN the donor provided.</p>

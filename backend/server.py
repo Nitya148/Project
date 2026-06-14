@@ -717,7 +717,7 @@ SAMPLE_LISTINGS = [
         "description": "End-of-evening Irani chai and freshly-baked Osmania biscuits from today's batch.",
         "category": "bakery", "quantity": 40, "unit": "items", "storage_condition": "ambient",
         "allergens": ["gluten", "dairy"], "dietary": ["vegetarian"],
-        "photo_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000",
+        "photo_url": "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (1, 5), "expiry_hours_from_now": 8,
     },
     {
@@ -726,7 +726,7 @@ SAMPLE_LISTINGS = [
         "description": "Surplus chicken & veg dum biryani from tonight's service. Sealed in eco trays, ready to serve.",
         "category": "prepared_meals", "quantity": 20, "unit": "servings", "storage_condition": "hot",
         "allergens": ["nuts", "dairy"], "dietary": ["halal"],
-        "photo_url": "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=1000",
+        "photo_url": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (0, 2), "expiry_hours_from_now": 4,
     },
     {
@@ -735,7 +735,7 @@ SAMPLE_LISTINGS = [
         "description": "Surplus bakery items near best-by date. Excellent for tea-time distribution.",
         "category": "bakery", "quantity": 12, "unit": "kg", "storage_condition": "ambient",
         "allergens": ["gluten", "dairy", "nuts"], "dietary": ["vegetarian"],
-        "photo_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000",
+        "photo_url": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (2, 8), "expiry_hours_from_now": 24,
     },
     {
@@ -744,7 +744,7 @@ SAMPLE_LISTINGS = [
         "description": "Surplus South Indian breakfast prep — idli, dosa batter, sambar and chutneys.",
         "category": "prepared_meals", "quantity": 30, "unit": "servings", "storage_condition": "refrigerated",
         "allergens": [], "dietary": ["vegetarian", "vegan", "gluten-free"],
-        "photo_url": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000",
+        "photo_url": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (1, 6), "expiry_hours_from_now": 14,
     },
     {
@@ -753,7 +753,7 @@ SAMPLE_LISTINGS = [
         "description": "Unopened buffalo milk bottles + crispy veg samosas from evening counter.",
         "category": "beverages", "quantity": 36, "unit": "items", "storage_condition": "refrigerated",
         "allergens": ["dairy", "gluten"], "dietary": ["vegetarian"],
-        "photo_url": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=1000",
+        "photo_url": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (1, 10), "expiry_hours_from_now": 30,
     },
 ]
@@ -850,43 +850,87 @@ async def seed():
     for v in SAMPLE_VOUCHERS:
         await db.vouchers.update_one({"id": v["id"]}, {"$set": v}, upsert=True)
 
-    # Listings (only seed if no active listings)
-    count = await db.listings.count_documents({"status": "active"})
-    if count == 0:
-        now = now_utc()
-        for s in SAMPLE_LISTINGS:
-            donor_id = donor_map.get(s["donor_email"])
-            if not donor_id:
-                continue
-            donor = await db.users.find_one({"id": donor_id})
-            ps, pe = s["pickup_hours_from_now"]
-            listing = {
-                "id": str(uuid.uuid4()),
-                "donor_id": donor_id,
-                "donor_name": donor.get("org_name"),
-                "donor_org_type": donor.get("org_type"),
-                "name": s["name"],
-                "description": s["description"],
-                "category": s["category"],
-                "quantity": s["quantity"],
-                "remaining_quantity": s["quantity"],
-                "unit": s["unit"],
-                "storage_condition": s["storage_condition"],
-                "allergens": s["allergens"],
-                "dietary": s["dietary"],
-                "photo_url": s["photo_url"],
-                "pickup_address": donor.get("address"),
-                "lat": donor.get("lat"),
-                "lng": donor.get("lng"),
-                "pickup_start": iso(now + timedelta(hours=ps)),
-                "pickup_end": iso(now + timedelta(hours=pe)),
-                "expiry_time": iso(now + timedelta(hours=s["expiry_hours_from_now"])),
-                "status": "active",
-                "pickup_pin": str(uuid.uuid4().int)[:4],
-                "created_at": iso(now),
-            }
-            await db.listings.insert_one(listing)
-        logger.info("Seeded sample listings")
+    # Listings — deterministic upsert so updates to seed photos/descriptions take effect
+    now = now_utc()
+    sample_names = {s["name"] for s in SAMPLE_LISTINGS}
+    sample_donor_ids = list(donor_map.values())
+    # Remove old duplicate UUID-based seed listings: same name & donor as a sample,
+    # but id doesn't start with "seed-", and has no activity. Preserves user listings.
+    duplicates = await db.listings.find({
+        "donor_id": {"$in": sample_donor_ids},
+        "name": {"$in": list(sample_names)},
+        "id": {"$not": {"$regex": "^seed-"}},
+    }, {"id": 1, "_id": 0}).to_list(200)
+    dup_ids = [d["id"] for d in duplicates]
+    if dup_ids:
+        has_activity_ids = set()
+        async for req in db.requests.find({"listing_id": {"$in": dup_ids}}, {"listing_id": 1, "_id": 0}):
+            has_activity_ids.add(req["listing_id"])
+        to_delete = [i for i in dup_ids if i not in has_activity_ids]
+        if to_delete:
+            await db.listings.delete_many({"id": {"$in": to_delete}})
+            logger.info("Removed %d duplicate UUID-based seed listings", len(to_delete))
+
+    # One-time migration: update photos on user-created listings that still have
+    # the old generic produce-default photo for a non-produce category.
+    OLD_GENERIC = "https://images.unsplash.com/photo-1542838132-92c53300491e"
+    CATEGORY_PHOTO_MAP = {
+        "bakery": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1000",
+        "prepared_meals": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1000",
+        "dairy": "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&q=80&w=1000",
+        "pantry": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=1000",
+        "beverages": "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&q=80&w=1000",
+        "other": "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=1000",
+    }
+    async for doc in db.listings.find({
+        "photo_url": {"$regex": OLD_GENERIC},
+        "category": {"$ne": "produce"},
+    }, {"id": 1, "category": 1, "_id": 0}):
+        new_url = CATEGORY_PHOTO_MAP.get(doc["category"])
+        if new_url:
+            await db.listings.update_one({"id": doc["id"]}, {"$set": {"photo_url": new_url}})
+
+    for s in SAMPLE_LISTINGS:
+        donor_id = donor_map.get(s["donor_email"])
+        if not donor_id:
+            continue
+        donor = await db.users.find_one({"id": donor_id})
+        ps, pe = s["pickup_hours_from_now"]
+        deterministic_id = f"seed-{s['donor_email'].split('@')[0]}-{s['name'][:30].lower().replace(' ', '-').replace(',', '')}"
+        existing = await db.listings.find_one({"id": deterministic_id})
+        # If any request was made against this seeded listing, leave it untouched
+        has_activity = False
+        if existing:
+            has_activity = bool(await db.requests.find_one({"listing_id": deterministic_id}))
+        if has_activity:
+            continue
+        listing = {
+            "id": deterministic_id,
+            "donor_id": donor_id,
+            "donor_name": donor.get("org_name"),
+            "donor_org_type": donor.get("org_type"),
+            "name": s["name"],
+            "description": s["description"],
+            "category": s["category"],
+            "quantity": s["quantity"],
+            "remaining_quantity": s["quantity"],
+            "unit": s["unit"],
+            "storage_condition": s["storage_condition"],
+            "allergens": s["allergens"],
+            "dietary": s["dietary"],
+            "photo_url": s["photo_url"],
+            "pickup_address": donor.get("address"),
+            "lat": donor.get("lat"),
+            "lng": donor.get("lng"),
+            "pickup_start": iso(now + timedelta(hours=ps)),
+            "pickup_end": iso(now + timedelta(hours=pe)),
+            "expiry_time": iso(now + timedelta(hours=s["expiry_hours_from_now"])),
+            "status": "active",
+            "pickup_pin": existing.get("pickup_pin") if existing else str(uuid.uuid4().int)[:4],
+            "created_at": existing.get("created_at") if existing else iso(now),
+        }
+        await db.listings.update_one({"id": deterministic_id}, {"$set": listing}, upsert=True)
+    logger.info("Seeded/refreshed sample listings")
 
 
 # ------------------------------ App wiring ----------------------------
