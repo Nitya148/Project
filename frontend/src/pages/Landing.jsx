@@ -74,23 +74,30 @@ export default function Landing() {
 
             <div className="md:col-span-4 animate-fade-up delay-200">
               <div className="card-light !p-8 backdrop-blur-md bg-white/70">
-                <div className="overline">Live tonight</div>
+                <div className="overline">Live network</div>
                 <div className="font-serif text-4xl mt-2">
-                  <span className="text-[#C85A40] italic">{stats.total_meals || 0}</span>{" "}
+                  <span className="text-[#C85A40] italic">{(stats.total_meals || 0).toLocaleString()}</span>{" "}
                   <span className="text-[#2A1B24]">meals</span>
                 </div>
                 <div className="text-sm text-[#695A62] mt-1">
-                  diverted from waste so far
+                  diverted from waste — and counting
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-4">
                   <div>
-                    <div className="text-2xl font-serif">{stats.total_kg || 0}</div>
+                    <div className="text-2xl font-serif">{(stats.total_kg || 0).toLocaleString()}</div>
                     <div className="text-xs text-[#695A62] uppercase tracking-wider">kg saved</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-serif">{stats.total_co2_kg || 0}</div>
+                    <div className="text-2xl font-serif">{(stats.total_co2_kg || 0).toLocaleString()}</div>
                     <div className="text-xs text-[#695A62] uppercase tracking-wider">kg CO₂ avoided</div>
                   </div>
+                </div>
+                <div className="mt-5 pt-5 border-t border-[#2A1B24]/10 flex items-center gap-2 text-xs text-[#695A62]">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C85A40] opacity-60"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C85A40]"></span>
+                  </span>
+                  <span>{stats.total_pickups || 0} confirmed pickups · {stats.by_day?.length || 0} days of activity</span>
                 </div>
               </div>
             </div>

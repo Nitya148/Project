@@ -67,15 +67,15 @@ export default function Impact() {
           <h2 className="font-serif text-2xl mt-2">Together we&apos;ve rescued</h2>
           <div className="grid grid-cols-3 gap-6 mt-6">
             <div>
-              <div className="font-serif text-4xl text-[#C85A40]">{global?.total_meals ?? 0}</div>
+              <div className="font-serif text-4xl text-[#C85A40]">{(global?.total_meals ?? 0).toLocaleString()}</div>
               <div className="text-xs uppercase tracking-wider text-[#695A62] mt-1">meals</div>
             </div>
             <div>
-              <div className="font-serif text-4xl">{global?.total_kg ?? 0}</div>
+              <div className="font-serif text-4xl">{(global?.total_kg ?? 0).toLocaleString()}</div>
               <div className="text-xs uppercase tracking-wider text-[#695A62] mt-1">kg of food</div>
             </div>
             <div>
-              <div className="font-serif text-4xl">{global?.total_co2_kg ?? 0}</div>
+              <div className="font-serif text-4xl">{(global?.total_co2_kg ?? 0).toLocaleString()}</div>
               <div className="text-xs uppercase tracking-wider text-[#695A62] mt-1">kg CO₂ avoided</div>
             </div>
           </div>

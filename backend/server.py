@@ -6,6 +6,7 @@ load_dotenv(ROOT_DIR / ".env")
 
 import os
 import math
+import random
 import uuid
 import logging
 import bcrypt
@@ -702,12 +703,21 @@ SAMPLE_DONORS = [
     {"email": "karachi@foodxchange.in", "name": "Aarti Khanna", "org_name": "Karachi Bakery", "org_type": "bakery", "address": "Mehdipatnam Rd, Banjara Hills, Hyderabad", "lat": 17.4156, "lng": 78.4351},
     {"email": "paradise@foodxchange.in", "name": "Imran Qureshi", "org_name": "Paradise Restaurant", "org_type": "restaurant", "address": "SD Road, Secunderabad, Hyderabad", "lat": 17.4399, "lng": 78.4983},
     {"email": "chutneys@foodxchange.in", "name": "Lakshmi Reddy", "org_name": "Chutneys", "org_type": "restaurant", "address": "Jubilee Hills, Hyderabad", "lat": 17.4326, "lng": 78.4071},
+    {"email": "pistahouse@foodxchange.in", "name": "Mohammed Abdul Majeed", "org_name": "Pista House", "org_type": "bakery", "address": "Shah Ali Banda, Charminar, Hyderabad", "lat": 17.3604, "lng": 78.4736},
+    {"email": "bawarchi@foodxchange.in", "name": "Suresh Kothapalli", "org_name": "Bawarchi Restaurant", "org_type": "restaurant", "address": "RTC X Roads, Hyderabad", "lat": 17.4030, "lng": 78.4986},
+    {"email": "ohris@foodxchange.in", "name": "Punita Sanghvi", "org_name": "Ohri's Banjara", "org_type": "restaurant", "address": "Road No. 12, Banjara Hills, Hyderabad", "lat": 17.4148, "lng": 78.4319},
+    {"email": "almondhouse@foodxchange.in", "name": "Khalid Pasha", "org_name": "Almond House", "org_type": "bakery", "address": "Road No. 36, Jubilee Hills, Hyderabad", "lat": 17.4234, "lng": 78.4070},
+    {"email": "concu@foodxchange.in", "name": "Nivedita Sharma", "org_name": "Conçu Patisserie", "org_type": "bakery", "address": "Road No. 1, Banjara Hills, Hyderabad", "lat": 17.4126, "lng": 78.4486},
 ]
 
 SAMPLE_RECIPIENTS = [
     {"email": "akshaya@foodxchange.in", "name": "Anand Rao", "org_name": "Akshaya Patra Hyderabad", "org_type": "community_kitchen", "address": "Narsingi, Hyderabad", "lat": 17.4239, "lng": 78.4738, "verified": True},
     {"email": "helpinghand@foodxchange.in", "name": "Mujtaba Hasan Askari", "org_name": "Helping Hand Foundation", "org_type": "ngo", "address": "Mehdipatnam, Hyderabad", "lat": 17.4156, "lng": 78.4347, "verified": True},
     {"email": "robinhood@foodxchange.in", "name": "Sanjana Iyer", "org_name": "Robin Hood Army Hyd", "org_type": "ngo", "address": "Gachibowli, Hyderabad", "lat": 17.4400, "lng": 78.3489, "verified": False},
+    {"email": "goonj@foodxchange.in", "name": "Vikram Bhargava", "org_name": "Goonj Hyderabad", "org_type": "ngo", "address": "Kondapur, Hyderabad", "lat": 17.4647, "lng": 78.3654, "verified": True},
+    {"email": "feedingindia@foodxchange.in", "name": "Ankit Kawatra", "org_name": "Feeding India — Zomato Foundation", "org_type": "food_bank", "address": "Madhapur, Hyderabad", "lat": 17.4483, "lng": 78.3915, "verified": True},
+    {"email": "aasara@foodxchange.in", "name": "Padmaja Rao", "org_name": "Aasara Old Age Home", "org_type": "community_kitchen", "address": "Saidabad, Hyderabad", "lat": 17.3645, "lng": 78.5043, "verified": True},
+    {"email": "bhumi@foodxchange.in", "name": "Ritika Singhal", "org_name": "Bhumi Hyderabad", "org_type": "ngo", "address": "Begumpet, Hyderabad", "lat": 17.4399, "lng": 78.4634, "verified": True},
 ]
 
 SAMPLE_LISTINGS = [
@@ -755,6 +765,69 @@ SAMPLE_LISTINGS = [
         "allergens": ["dairy", "gluten"], "dietary": ["vegetarian"],
         "photo_url": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (1, 10), "expiry_hours_from_now": 30,
+    },
+    {
+        "donor_email": "pistahouse@foodxchange.in",
+        "name": "Haleem trays — Ramadan special",
+        "description": "Slow-cooked mutton haleem, freshly prepared. Sealed trays, ready to distribute.",
+        "category": "prepared_meals", "quantity": 25, "unit": "servings", "storage_condition": "hot",
+        "allergens": ["gluten", "dairy"], "dietary": ["halal"],
+        "photo_url": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (0, 3), "expiry_hours_from_now": 5,
+    },
+    {
+        "donor_email": "pistahouse@foodxchange.in",
+        "name": "Mawa cakes, fruit cake & dilkush",
+        "description": "Surplus signature bakery items from today's counter. Best within 24 hours.",
+        "category": "bakery", "quantity": 8, "unit": "kg", "storage_condition": "ambient",
+        "allergens": ["gluten", "dairy", "nuts", "eggs"], "dietary": ["vegetarian"],
+        "photo_url": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (1, 8), "expiry_hours_from_now": 20,
+    },
+    {
+        "donor_email": "bawarchi@foodxchange.in",
+        "name": "Mutton biryani + raita pots (15 portions)",
+        "description": "Signature Bawarchi mutton biryani, served with mirchi salan and raita.",
+        "category": "prepared_meals", "quantity": 15, "unit": "servings", "storage_condition": "hot",
+        "allergens": ["dairy", "nuts"], "dietary": ["halal"],
+        "photo_url": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (0, 2), "expiry_hours_from_now": 4,
+    },
+    {
+        "donor_email": "ohris@foodxchange.in",
+        "name": "Mirchi ka salan, bagara baingan & rotis",
+        "description": "Surplus North Indian + Hyderabadi gravies and 60 fresh rotis. Refrigerated.",
+        "category": "prepared_meals", "quantity": 22, "unit": "servings", "storage_condition": "refrigerated",
+        "allergens": ["dairy", "nuts", "gluten"], "dietary": ["vegetarian"],
+        "photo_url": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (1, 6), "expiry_hours_from_now": 18,
+    },
+    {
+        "donor_email": "almondhouse@foodxchange.in",
+        "name": "Badam halwa, dry-fruit laddoos & kaju katli",
+        "description": "Surplus mithai trays from today's production. Sealed boxes.",
+        "category": "other", "quantity": 6, "unit": "kg", "storage_condition": "ambient",
+        "allergens": ["nuts", "dairy"], "dietary": ["vegetarian", "gluten-free"],
+        "photo_url": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (2, 12), "expiry_hours_from_now": 48,
+    },
+    {
+        "donor_email": "concu@foodxchange.in",
+        "name": "French pastries, croissants & quiche",
+        "description": "End-of-day patisserie surplus — almond croissants, eclairs, mini quiches.",
+        "category": "bakery", "quantity": 32, "unit": "items", "storage_condition": "refrigerated",
+        "allergens": ["gluten", "dairy", "eggs", "nuts"], "dietary": ["vegetarian"],
+        "photo_url": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (0, 4), "expiry_hours_from_now": 12,
+    },
+    {
+        "donor_email": "karachi@foodxchange.in",
+        "name": "Plum cake, dundee cake & banana bread",
+        "description": "Surplus tea-time loaves perfect for evening distribution.",
+        "category": "bakery", "quantity": 18, "unit": "loaves", "storage_condition": "ambient",
+        "allergens": ["gluten", "dairy", "eggs", "nuts"], "dietary": ["vegetarian"],
+        "photo_url": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (3, 10), "expiry_hours_from_now": 36,
     },
 ]
 
@@ -931,6 +1004,59 @@ async def seed():
         }
         await db.listings.update_one({"id": deterministic_id}, {"$set": listing}, upsert=True)
     logger.info("Seeded/refreshed sample listings")
+
+    # Seed historical impact events so dashboards/landing show realistic numbers.
+    # Idempotent: only inserts if no events with marker "seed-history-" exist.
+    existing_history = await db.impact_events.find_one({"id": {"$regex": "^seed-history-"}})
+    if not existing_history:
+        donor_ids = list(donor_map.values())
+        verified_recipient_ids = []
+        async for u in db.users.find({"role": "recipient", "verified": True}, {"id": 1, "_id": 0}):
+            verified_recipient_ids.append(u["id"])
+        if donor_ids and verified_recipient_ids:
+            random.seed(42)  # deterministic demo data
+            HISTORY_COUNT = 120
+            now = now_utc()
+            events_to_insert = []
+            for i in range(HISTORY_COUNT):
+                days_ago = random.randint(0, 13)
+                hours_ago = random.randint(0, 23)
+                minutes_ago = random.randint(0, 59)
+                ts = now - timedelta(days=days_ago, hours=hours_ago, minutes=minutes_ago)
+                qty = round(random.uniform(3, 30), 1)
+                unit = random.choices(
+                    ["servings", "kg", "items", "loaves"],
+                    weights=[5, 3, 2, 1],
+                )[0]
+                meals = qty * MEALS_PER_UNIT.get(unit, 1)
+                co2 = qty * (CO2_PER_KG if unit == "kg" else 0.5)
+                donor_id = random.choice(donor_ids)
+                recipient_id = random.choice(verified_recipient_ids)
+                events_to_insert.append({
+                    "id": f"seed-history-{i}",
+                    "donor_id": donor_id,
+                    "recipient_id": recipient_id,
+                    "listing_id": f"seed-history-listing-{i}",
+                    "request_id": f"seed-history-req-{i}",
+                    "quantity": qty,
+                    "unit": unit,
+                    "meals": meals,
+                    "co2_kg": co2,
+                    "created_at": iso(ts),
+                })
+                points = int(round(qty * 10))
+                await db.users.update_one({"id": donor_id}, {"$inc": {"points": points}})
+                await db.point_transactions.insert_one({
+                    "id": f"seed-history-tx-{i}",
+                    "user_id": donor_id,
+                    "amount": points,
+                    "type": "earned",
+                    "reason": "Pickup completed: surplus rescue",
+                    "created_at": iso(ts),
+                })
+            if events_to_insert:
+                await db.impact_events.insert_many(events_to_insert)
+                logger.info("Seeded %d historical impact events", len(events_to_insert))
 
 
 # ------------------------------ App wiring ----------------------------
