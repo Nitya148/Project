@@ -85,7 +85,7 @@ export default function Login() {
           </form>
 
           <div className="mt-8 text-sm text-[#695A62]">
-            New to Food Xchange?{" "}
+            New to RePlate?{" "}
             <Link to="/register" className="text-[#C85A40] font-medium underline-offset-4 hover:underline" data-testid="link-register">
               Create an account
             </Link>

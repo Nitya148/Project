@@ -1,4 +1,6 @@
-# Food Waste Exchange (Food Xchange) — PRD & Progress
+# RePlate — Real-time Food Rescue Platform — PRD & Progress
+
+> Originally scoped as "Food Waste Exchange" (PRD `Food_Waste_Exchange_PRD.docx`). Renamed to **RePlate** in Jan 2026.
 
 ## Original Problem Statement
 > "make this whole app and it has to be aesthetically pleasing" — referring to the attached **Food Waste Exchange PRD** (`Food_Waste_Exchange_PRD.docx`).

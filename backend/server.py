@@ -32,7 +32,7 @@ def get_jwt_secret() -> str:
     return os.environ["JWT_SECRET"]
 
 
-app = FastAPI(title="Food Waste Exchange API")
+app = FastAPI(title="RePlate API")
 api = APIRouter(prefix="/api")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -684,7 +684,7 @@ async def admin_stats(user: dict = Depends(get_current_user)):
 
 @api.get("/")
 async def root():
-    return {"name": "Food Waste Exchange API", "status": "ok"}
+    return {"name": "RePlate API", "status": "ok"}
 
 
 # ------------------------------ Seed ---------------------------------
@@ -694,7 +694,7 @@ SAMPLE_VOUCHERS = [
     {"id": "v-grocery-1", "partner": "Heirloom Grocers", "title": "$10 Grocery Voucher", "description": "Toward any seasonal produce at Heirloom.", "points_cost": 250, "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800"},
     {"id": "v-bakery-1", "partner": "Folk & Flour", "title": "Free Pastry of the Day", "description": "Pick any pastry from the morning case.", "points_cost": 60, "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800"},
     {"id": "v-meal-1", "partner": "Field & Vine", "title": "Two-Course Lunch", "description": "Seasonal prix-fixe lunch for one.", "points_cost": 500, "image_url": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800"},
-    {"id": "v-tote-1", "partner": "Food Xchange", "title": "Canvas Tote Bag", "description": "Made from organic, undyed cotton.", "points_cost": 150, "image_url": "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=800"},
+    {"id": "v-tote-1", "partner": "RePlate", "title": "Canvas Tote Bag", "description": "Made from organic, undyed cotton.", "points_cost": 150, "image_url": "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=800"},
     {"id": "v-tree-1", "partner": "One Tree Planted", "title": "Plant 5 Trees", "description": "Donate points to fund tree planting.", "points_cost": 300, "image_url": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800"},
 ]
 

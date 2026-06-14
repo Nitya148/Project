@@ -52,9 +52,9 @@ export default function Layout() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           <Link to="/dashboard" className="flex items-center gap-2" data-testid="logo-link">
-            <div className="w-8 h-8 rounded-full bg-[#C85A40] flex items-center justify-center text-white font-serif italic text-lg leading-none">f</div>
+            <div className="w-8 h-8 rounded-full bg-[#C85A40] flex items-center justify-center text-white font-serif italic text-lg leading-none">R</div>
             <span className="font-serif text-xl tracking-tight">
-              Food <span className="italic text-[#C85A40]">Xchange</span>
+              Re<span className="italic text-[#C85A40]">Plate</span>
             </span>
           </Link>
 
@@ -123,7 +123,7 @@ export default function Layout() {
       </main>
 
       <footer className="border-t border-[#2A1B24]/5 mt-16 py-8 text-center text-sm text-[#695A62]">
-        <span className="font-serif italic">Food Xchange</span> — rescuing surplus, feeding community.
+        <span className="font-serif italic">RePlate</span> — rescuing surplus, feeding community.
       </footer>
     </div>
   );

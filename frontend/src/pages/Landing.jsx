@@ -16,9 +16,9 @@ export default function Landing() {
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#FDFBF7]/80 border-b border-[#2A1B24]/5">
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2" data-testid="landing-logo">
-            <div className="w-9 h-9 rounded-full bg-[#C85A40] flex items-center justify-center text-white font-serif italic text-xl leading-none">f</div>
+            <div className="w-9 h-9 rounded-full bg-[#C85A40] flex items-center justify-center text-white font-serif italic text-xl leading-none">R</div>
             <span className="font-serif text-2xl tracking-tight">
-              Food <span className="italic text-[#C85A40]">Xchange</span>
+              Re<span className="italic text-[#C85A40]">Plate</span>
             </span>
           </Link>
           <nav className="hidden md:flex items-center gap-2">
@@ -241,7 +241,7 @@ export default function Landing() {
       </section>
 
       <footer className="border-t border-[#2A1B24]/10 py-10 text-center text-sm text-[#695A62]">
-        <span className="font-serif italic">Food Xchange</span> · Built with care for the food we&apos;d otherwise lose.
+        <span className="font-serif italic">RePlate</span> · Built with care for the food we&apos;d otherwise lose.
       </footer>
     </div>
   );
