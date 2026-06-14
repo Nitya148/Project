@@ -94,13 +94,13 @@ export default function Login() {
           <div className="mt-10 border-t border-[#2A1B24]/10 pt-6">
             <div className="overline mb-3">Demo accounts</div>
             <div className="grid grid-cols-1 gap-2 text-sm">
-              <button onClick={() => fill("luma@cafeluma.app", "Demo123!")} className="text-left bg-[#F4EFE6] hover:bg-[#EAE2D3] rounded-2xl px-4 py-3" data-testid="demo-donor">
-                <div className="font-medium">Donor — Café Luma</div>
-                <div className="text-[#695A62] text-xs">luma@cafeluma.app · Demo123!</div>
+              <button onClick={() => fill("niloufer@foodxchange.in", "Demo123!")} className="text-left bg-[#F4EFE6] hover:bg-[#EAE2D3] rounded-2xl px-4 py-3" data-testid="demo-donor">
+                <div className="font-medium">Donor — Café Niloufer (Hyderabad)</div>
+                <div className="text-[#695A62] text-xs">niloufer@foodxchange.in · Demo123!</div>
               </button>
-              <button onClick={() => fill("harbor@harborkitchen.app", "Demo123!")} className="text-left bg-[#F4EFE6] hover:bg-[#EAE2D3] rounded-2xl px-4 py-3" data-testid="demo-recipient">
-                <div className="font-medium">Recipient — Harbor Community Kitchen <span className="badge bg-[#6B705C]/10 !text-[#6B705C] !py-0.5 ml-2">verified</span></div>
-                <div className="text-[#695A62] text-xs">harbor@harborkitchen.app · Demo123!</div>
+              <button onClick={() => fill("akshaya@foodxchange.in", "Demo123!")} className="text-left bg-[#F4EFE6] hover:bg-[#EAE2D3] rounded-2xl px-4 py-3" data-testid="demo-recipient">
+                <div className="font-medium">Recipient — Akshaya Patra Hyderabad <span className="badge bg-[#6B705C]/10 !text-[#6B705C] !py-0.5 ml-2">verified</span></div>
+                <div className="text-[#695A62] text-xs">akshaya@foodxchange.in · Demo123!</div>
               </button>
               <button onClick={() => fill("admin@foodxchange.app", "Admin123!")} className="text-left bg-[#F4EFE6] hover:bg-[#EAE2D3] rounded-2xl px-4 py-3" data-testid="demo-admin">
                 <div className="font-medium">Admin</div>

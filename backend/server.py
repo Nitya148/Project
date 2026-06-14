@@ -698,52 +698,63 @@ SAMPLE_VOUCHERS = [
 ]
 
 SAMPLE_DONORS = [
-    {"email": "luma@cafeluma.app", "name": "Sofia Marini", "org_name": "Café Luma", "org_type": "cafe", "address": "12 Aubergine Lane, Brooklyn", "lat": 40.7081, "lng": -73.9571},
-    {"email": "folk@folkflour.app", "name": "Henrik Voss", "org_name": "Folk & Flour Bakery", "org_type": "bakery", "address": "88 Mulberry St, Brooklyn", "lat": 40.7178, "lng": -73.9610},
-    {"email": "field@fieldvine.app", "name": "Aria Patel", "org_name": "Field & Vine", "org_type": "restaurant", "address": "5 Ember Way, Manhattan", "lat": 40.7295, "lng": -73.9965},
+    {"email": "niloufer@foodxchange.in", "name": "Rafiq Hussain", "org_name": "Café Niloufer", "org_type": "cafe", "address": "Lakdi-ka-Pul, Hyderabad", "lat": 17.3998, "lng": 78.4730},
+    {"email": "karachi@foodxchange.in", "name": "Aarti Khanna", "org_name": "Karachi Bakery", "org_type": "bakery", "address": "Mehdipatnam Rd, Banjara Hills, Hyderabad", "lat": 17.4156, "lng": 78.4351},
+    {"email": "paradise@foodxchange.in", "name": "Imran Qureshi", "org_name": "Paradise Restaurant", "org_type": "restaurant", "address": "SD Road, Secunderabad, Hyderabad", "lat": 17.4399, "lng": 78.4983},
+    {"email": "chutneys@foodxchange.in", "name": "Lakshmi Reddy", "org_name": "Chutneys", "org_type": "restaurant", "address": "Jubilee Hills, Hyderabad", "lat": 17.4326, "lng": 78.4071},
 ]
 
 SAMPLE_RECIPIENTS = [
-    {"email": "harbor@harborkitchen.app", "name": "Marcus Ojo", "org_name": "Harbor Community Kitchen", "org_type": "community_kitchen", "address": "201 Waterline Rd, Brooklyn", "lat": 40.7011, "lng": -73.9876, "verified": True},
-    {"email": "shelter@kindshelter.app", "name": "Lena Park", "org_name": "Kind Shelter NGO", "org_type": "ngo", "address": "44 Hearth Ave, Brooklyn", "lat": 40.7150, "lng": -73.9555, "verified": False},
+    {"email": "akshaya@foodxchange.in", "name": "Anand Rao", "org_name": "Akshaya Patra Hyderabad", "org_type": "community_kitchen", "address": "Narsingi, Hyderabad", "lat": 17.4239, "lng": 78.4738, "verified": True},
+    {"email": "helpinghand@foodxchange.in", "name": "Mujtaba Hasan Askari", "org_name": "Helping Hand Foundation", "org_type": "ngo", "address": "Mehdipatnam, Hyderabad", "lat": 17.4156, "lng": 78.4347, "verified": True},
+    {"email": "robinhood@foodxchange.in", "name": "Sanjana Iyer", "org_name": "Robin Hood Army Hyd", "org_type": "ngo", "address": "Gachibowli, Hyderabad", "lat": 17.4400, "lng": 78.3489, "verified": False},
 ]
 
 SAMPLE_LISTINGS = [
     {
-        "donor_email": "luma@cafeluma.app",
-        "name": "Sourdough loaves & morning pastries",
-        "description": "End-of-day sourdough, scones and croissants from today's bake.",
-        "category": "bakery", "quantity": 18, "unit": "loaves", "storage_condition": "ambient",
+        "donor_email": "niloufer@foodxchange.in",
+        "name": "Irani chai urns & Osmania biscuits",
+        "description": "End-of-evening Irani chai and freshly-baked Osmania biscuits from today's batch.",
+        "category": "bakery", "quantity": 40, "unit": "items", "storage_condition": "ambient",
         "allergens": ["gluten", "dairy"], "dietary": ["vegetarian"],
         "photo_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (1, 5), "expiry_hours_from_now": 8,
     },
     {
-        "donor_email": "field@fieldvine.app",
-        "name": "Prepared family-style meals (12 portions)",
-        "description": "Roasted root vegetables, herbed grains and lentil stew, sealed in eco trays.",
-        "category": "prepared_meals", "quantity": 12, "unit": "servings", "storage_condition": "hot",
-        "allergens": ["nuts"], "dietary": ["vegan", "gluten-free"],
+        "donor_email": "paradise@foodxchange.in",
+        "name": "Hyderabadi dum biryani — 20 portions",
+        "description": "Surplus chicken & veg dum biryani from tonight's service. Sealed in eco trays, ready to serve.",
+        "category": "prepared_meals", "quantity": 20, "unit": "servings", "storage_condition": "hot",
+        "allergens": ["nuts", "dairy"], "dietary": ["halal"],
         "photo_url": "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=1000",
         "pickup_hours_from_now": (0, 2), "expiry_hours_from_now": 4,
     },
     {
-        "donor_email": "folk@folkflour.app",
-        "name": "Seasonal produce surplus",
-        "description": "Heirloom tomatoes, summer squash, leafy greens. Slightly soft but excellent for prep.",
-        "category": "produce", "quantity": 14, "unit": "kg", "storage_condition": "refrigerated",
-        "allergens": [], "dietary": ["vegan", "gluten-free"],
-        "photo_url": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000",
-        "pickup_hours_from_now": (2, 8), "expiry_hours_from_now": 18,
+        "donor_email": "karachi@foodxchange.in",
+        "name": "Fruit biscuits, cake slices & rusks",
+        "description": "Surplus bakery items near best-by date. Excellent for tea-time distribution.",
+        "category": "bakery", "quantity": 12, "unit": "kg", "storage_condition": "ambient",
+        "allergens": ["gluten", "dairy", "nuts"], "dietary": ["vegetarian"],
+        "photo_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (2, 8), "expiry_hours_from_now": 24,
     },
     {
-        "donor_email": "luma@cafeluma.app",
-        "name": "Cold brew & specialty milks",
-        "description": "Unopened cold brew bottles and surplus oat milk near best-by date.",
-        "category": "beverages", "quantity": 30, "unit": "items", "storage_condition": "refrigerated",
-        "allergens": ["dairy"], "dietary": [],
+        "donor_email": "chutneys@foodxchange.in",
+        "name": "Idli, dosa batter & sambar (large batch)",
+        "description": "Surplus South Indian breakfast prep — idli, dosa batter, sambar and chutneys.",
+        "category": "prepared_meals", "quantity": 30, "unit": "servings", "storage_condition": "refrigerated",
+        "allergens": [], "dietary": ["vegetarian", "vegan", "gluten-free"],
+        "photo_url": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000",
+        "pickup_hours_from_now": (1, 6), "expiry_hours_from_now": 14,
+    },
+    {
+        "donor_email": "niloufer@foodxchange.in",
+        "name": "Cold milk bottles & samosas",
+        "description": "Unopened buffalo milk bottles + crispy veg samosas from evening counter.",
+        "category": "beverages", "quantity": 36, "unit": "items", "storage_condition": "refrigerated",
+        "allergens": ["dairy", "gluten"], "dietary": ["vegetarian"],
         "photo_url": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=1000",
-        "pickup_hours_from_now": (1, 10), "expiry_hours_from_now": 36,
+        "pickup_hours_from_now": (1, 10), "expiry_hours_from_now": 30,
     },
 ]
 
@@ -752,6 +763,22 @@ async def seed():
     await db.users.create_index("email", unique=True)
     await db.listings.create_index("status")
     await db.requests.create_index("status")
+
+    # Cleanup OLD seeded sample data (one-time migration from US -> Hyderabad demo)
+    OLD_SAMPLE_EMAILS = [
+        "luma@cafeluma.app", "folk@folkflour.app", "field@fieldvine.app",
+        "harbor@harborkitchen.app", "shelter@kindshelter.app",
+    ]
+    old_users = await db.users.find({"email": {"$in": OLD_SAMPLE_EMAILS}}, {"id": 1, "_id": 0}).to_list(100)
+    old_ids = [u["id"] for u in old_users]
+    if old_ids:
+        await db.listings.delete_many({"donor_id": {"$in": old_ids}})
+        await db.requests.delete_many({"$or": [{"donor_id": {"$in": old_ids}}, {"recipient_id": {"$in": old_ids}}]})
+        await db.point_transactions.delete_many({"user_id": {"$in": old_ids}})
+        await db.impact_events.delete_many({"$or": [{"donor_id": {"$in": old_ids}}, {"recipient_id": {"$in": old_ids}}]})
+        await db.redemptions.delete_many({"user_id": {"$in": old_ids}})
+        await db.users.delete_many({"email": {"$in": OLD_SAMPLE_EMAILS}})
+        logger.info("Cleaned up %d old sample users + related data", len(old_ids))
 
     # Admin
     admin_email = os.environ["ADMIN_EMAIL"].lower()

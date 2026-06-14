@@ -30,8 +30,8 @@ export default function Register() {
     org_type: "restaurant",
     phone: "",
     address: "",
-    lat: 40.7081,
-    lng: -73.9571,
+    lat: 17.4239,
+    lng: 78.4738,
   });
   const [loading, setLoading] = useState(false);
 
