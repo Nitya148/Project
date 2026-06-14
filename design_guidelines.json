@@ -1,0 +1,120 @@
+{
+  "theme": "Light",
+  "archetype": "Organic & Earthy",
+  "rationale": "For a Food Waste Exchange, the standard 'eco-green' feels clinical and cliché. We are opting for a warm, editorial 'Food Photography' aesthetic using Bone White, Terracotta, and Deep Aubergine. This creates a premium, trustworthy, and human-centered experience that balances urgency (expiring food) with community care.",
+  "colors": {
+    "background": "#FDFBF7",
+    "surface": "#F4EFE6",
+    "surface_glass": "rgba(244, 239, 230, 0.7)",
+    "primary": "#C85A40",
+    "primary_hover": "#A64630",
+    "text_main": "#2A1B24",
+    "text_muted": "#695A62",
+    "success": "#6B705C",
+    "warning": "#D97D3A",
+    "border": "rgba(42, 27, 36, 0.08)"
+  },
+  "typography": {
+    "heading_font": "Cormorant Garamond",
+    "body_font": "Outfit",
+    "font_imports": [
+      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    ],
+    "scale": {
+      "h1": "text-5xl sm:text-6xl tracking-tight font-semibold leading-none text-[#2A1B24]",
+      "h2": "text-3xl sm:text-4xl tracking-tight font-medium text-[#2A1B24]",
+      "h3": "text-xl sm:text-2xl font-medium text-[#2A1B24]",
+      "h4": "text-lg font-medium text-[#2A1B24]",
+      "body": "text-base font-normal text-[#695A62] leading-relaxed",
+      "small": "text-sm font-medium tracking-wide text-[#695A62]",
+      "overline": "text-xs font-bold uppercase tracking-[0.2em] text-[#C85A40]"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing Philosophy. Wide margins, breathing room, and organic asymmetry.",
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "section_padding": "py-20 sm:py-32",
+    "card_padding": "p-6 sm:p-8",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8",
+    "dashboard_grid": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+    "border_radius": {
+      "sm": "rounded-lg",
+      "md": "rounded-2xl",
+      "lg": "rounded-3xl",
+      "full": "rounded-full"
+    }
+  },
+  "surfaces_and_shadows": {
+    "card": "bg-[#F4EFE6] rounded-3xl border border-[#2A1B24]/10 shadow-[0_8px_24px_rgba(42,27,36,0.04)]",
+    "card_hover": "hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(42,27,36,0.08)] transition-all duration-300",
+    "glass_header": "backdrop-blur-xl bg-[#FDFBF7]/80 border-b border-[#2A1B24]/5 z-50",
+    "image_overlay": "bg-gradient-to-t from-[#2A1B24]/70 via-[#2A1B24]/20 to-transparent"
+  },
+  "components": {
+    "button_primary": "bg-[#C85A40] text-white hover:bg-[#A64630] rounded-full px-8 py-4 font-medium transition-colors shadow-sm",
+    "button_secondary": "bg-[#F4EFE6] text-[#2A1B24] border border-[#2A1B24]/10 hover:bg-[#EAE2D3] rounded-full px-8 py-4 font-medium transition-colors",
+    "button_ghost": "text-[#2A1B24] hover:bg-[#2A1B24]/5 rounded-full px-6 py-3 font-medium transition-colors",
+    "input": "bg-white border border-[#2A1B24]/10 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#C85A40]/30 focus:border-[#C85A40] w-full text-base",
+    "badge_urgent": "bg-[#D97D3A]/10 text-[#D97D3A] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
+    "badge_success": "bg-[#6B705C]/10 text-[#6B705C] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
+    "stat_card": "bg-white rounded-3xl p-8 border border-[#2A1B24]/5 flex flex-col gap-2"
+  },
+  "motion": {
+    "hover": "transition-all duration-300 ease-out",
+    "entrance_stagger": "animate-fade-in-up",
+    "marquee": "slow continuous horizontal scroll for partner logos or impact stats"
+  },
+  "icons": {
+    "library": "lucide-react",
+    "style": "stroke-[1.5] text-[#2A1B24]"
+  },
+  "media": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&q=80&w=1200",
+      "description": "Warm, overhead shot of a rustic table with fresh ingredients. Used for marketing landing hero background."
+    },
+    "food_produce": {
+      "url": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800",
+      "description": "Fresh organic vegetables in a box. Use for surplus food listing examples."
+    },
+    "food_bakery": {
+      "url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800",
+      "description": "Artisan bread and pastries. Use for bakery surplus listing examples."
+    },
+    "community_sharing": {
+      "url": "https://images.unsplash.com/photo-1593113565687-cc2f464d1f2e?auto=format&fit=crop&q=80&w=800",
+      "description": "People sharing/handing over a box of food. Use for recipient/donor connection visual."
+    },
+    "reward_coffee": {
+      "url": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800",
+      "description": "A warm cup of latte art coffee. Use for the reward points catalog."
+    },
+    "avatar_donor": {
+      "url": "https://images.unsplash.com/photo-1556910103-1c02745a8e8e?auto=format&fit=crop&q=80&w=200",
+      "description": "Chef/Baker avatar for donor profiles."
+    },
+    "avatar_recipient": {
+      "url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+      "description": "Friendly person avatar for recipient profile."
+    },
+    "impact_nature": {
+      "url": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800",
+      "description": "Earthy plant/nature image for environmental impact dashboard decoration."
+    }
+  },
+  "testing": {
+    "requirements": "All interactive and key informational elements MUST include a 'data-testid' attribute in kebab-case."
+  },
+  "instructions_to_main_agent": [
+    "Do not use generic 'eco green leaf' styles. Stick to the Terracotta, Bone White, and Aubergine earthy palette to simulate premium food photography aesthetics.",
+    "Do NOT use Inter or Roboto. Apply Cormorant Garamond for main headings and Outfit for UI text.",
+    "For the Landing page, utilize generous padding (p-12 to py-32) and bento grids for impact stats.",
+    "For the Dashboard (Donor/Recipient/Impact), use the 'Control Room' grid philosophy but with our soft radii (rounded-2xl) and clay-like borders to remain human and not overly clinical.",
+    "Use lucide-react for all icons. Keep stroke width to 1.5.",
+    "Implement glassmorphism selectively for the sticky navigation header using backdrop-blur-xl and a semi-transparent background.",
+    "Ensure all buttons, form inputs, and links have explicit hover, focus, and active states with proper contrast.",
+    "Always apply 'data-testid' attributes to all interactive elements for robust testing.",
+    "When displaying food listing images, limit height to max-h-[80vh] on mobile and use the gradient overlay if placing text on top of images.",
+    "Use Shadcn components for forms, tabs, and tables, but heavily customize them to remove the default Vercel-like appearance. Override standard radii with rounded-2xl where appropriate."
+  ]
+}
