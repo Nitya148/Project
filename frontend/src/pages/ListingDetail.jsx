@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { ArrowLeft, MapPin, Clock, Package, Thermometer, AlertCircle, Leaf, Send, X } from "lucide-react";
 import { timeUntil } from "@/pages/Discover";
+import MapView from "@/components/MapView";
 
 export default function ListingDetail() {
   const { id } = useParams();
@@ -80,6 +81,20 @@ export default function ListingDetail() {
               </span>
             </div>
           </div>
+
+          {listing.lat != null && listing.lng != null && (
+            <div data-testid="listing-map">
+              <div className="overline mb-3 flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5" /> Pickup location
+              </div>
+              <MapView
+                listings={[listing]}
+                origin={user.lat != null && user.lng != null ? { lat: user.lat, lng: user.lng, label: user.org_name || "You" } : null}
+                height={320}
+                interactive={true}
+              />
+            </div>
+          )}
         </div>
 
         <div className="lg:col-span-2 space-y-6">

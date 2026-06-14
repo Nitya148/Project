@@ -2,7 +2,8 @@ import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import api from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
-import { Clock, MapPin, Filter, Compass, ShieldAlert } from "lucide-react";
+import { Clock, MapPin, Filter, Compass, ShieldAlert, LayoutGrid, Map as MapIcon } from "lucide-react";
+import MapView from "@/components/MapView";
 
 const CATEGORIES = [
   { v: "", l: "All categories" },
@@ -21,6 +22,7 @@ export default function Discover() {
   const [loading, setLoading] = useState(true);
   const [radius, setRadius] = useState(50);
   const [category, setCategory] = useState("");
+  const [view, setView] = useState("list");
 
   useEffect(() => {
     setLoading(true);
@@ -30,6 +32,10 @@ export default function Discover() {
       .finally(() => setLoading(false));
   }, [radius, category]);
 
+  const origin = user.lat != null && user.lng != null
+    ? { lat: user.lat, lng: user.lng, label: user.org_name || "You" }
+    : null;
+
   return (
     <div className="space-y-8" data-testid="discover-page">
       <header className="flex items-end justify-between flex-wrap gap-4">
@@ -38,9 +44,33 @@ export default function Discover() {
           <h1 className="font-serif text-4xl sm:text-5xl mt-2 leading-tight">Surplus near you</h1>
           <p className="text-[#695A62] mt-2">Real-time listings sorted by distance and urgency.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Compass className="w-5 h-5 text-[#C85A40]" />
-          <span className="text-sm text-[#695A62]">{items.length} listings available</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Compass className="w-5 h-5 text-[#C85A40]" />
+            <span className="text-sm text-[#695A62]">{items.length} listings available</span>
+          </div>
+          <div className="flex bg-[#F4EFE6] rounded-full p-1" data-testid="view-toggle">
+            <button
+              onClick={() => setView("list")}
+              data-testid="view-list"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                view === "list" ? "bg-[#2A1B24] text-[#FDFBF7]" : "text-[#2A1B24]/70"
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              List
+            </button>
+            <button
+              onClick={() => setView("map")}
+              data-testid="view-map"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                view === "map" ? "bg-[#2A1B24] text-[#FDFBF7]" : "text-[#2A1B24]/70"
+              }`}
+            >
+              <MapIcon className="w-3.5 h-3.5" />
+              Map
+            </button>
+          </div>
         </div>
       </header>
 
@@ -78,6 +108,34 @@ export default function Discover() {
           <Compass className="w-8 h-8 mx-auto text-[#C85A40]" strokeWidth={1.5} />
           <h2 className="font-serif text-2xl mt-4">Nothing nearby right now</h2>
           <p className="text-[#695A62] mt-2">Try expanding the radius or check back in a bit — new listings drop throughout the day.</p>
+        </div>
+      ) : view === "map" ? (
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div className="lg:col-span-3" data-testid="discover-map">
+            <MapView listings={items} origin={origin} height={560} />
+          </div>
+          <div className="lg:col-span-2 space-y-3 max-h-[560px] overflow-y-auto pr-1">
+            {items.map((l, idx) => (
+              <Link
+                to={`/listings/${l.id}`}
+                key={l.id}
+                className="card-light flex gap-4 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(42,27,36,0.06)] transition-all"
+                data-testid={`map-row-${l.id}`}
+              >
+                <div className="w-7 h-7 rounded-full bg-[#C85A40] text-white text-xs font-bold flex items-center justify-center shrink-0">
+                  {idx + 1}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] uppercase tracking-[0.18em] text-[#695A62]">{l.donor_name}</div>
+                  <div className="font-serif text-lg leading-tight mt-1 truncate">{l.name}</div>
+                  <div className="flex items-center justify-between mt-1 text-xs text-[#695A62]">
+                    <span>{l.remaining_quantity} {l.unit}</span>
+                    {l.distance_km != null && <span className="text-[#C85A40] font-semibold">{l.distance_km} km</span>}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
