@@ -83,23 +83,54 @@ with tabs[4]:
             dietary = st.multiselect("Dietary tags", ["vegetarian", "vegan", "gluten-free", "halal", "kosher"])
             address = st.text_input("Pickup address", value=user.get("address") or "")
             photo = st.text_input("Photo URL (auto-suggested)", value=CATEGORY_PHOTOS[category])
-        st.markdown("##### Pickup window & expiry")
+            st.markdown("##### Pickup window & expiry")
+
         c3, c4, c5 = st.columns(3)
         now = datetime.now(timezone.utc)
+
         with c3:
-            pickup_start_date = st.date_input("Pickup starts (date)", value=now.date())
-            pickup_start_time = st.time_input("Pickup starts (time)", value=(now + timedelta(hours=1)).time())
+            pickup_start_date = st.date_input(
+                "Pickup starts (date)",
+                value=now.date()
+            )
+            pickup_start_time = st.time_input(
+                "Pickup starts (time)",
+                value=(now + timedelta(hours=1)).time(),
+                step=900
+            )
+
         with c4:
-            pickup_end_date = st.date_input("Pickup ends (date)", value=now.date())
-            pickup_end_time = st.time_input("Pickup ends (time)", value=(now + timedelta(hours=4)).time())
+            pickup_end_date = st.date_input(
+                "Pickup ends (date)",
+                value=now.date()
+            )
+            pickup_end_time = st.time_input(
+                "Pickup ends (time)",
+                value=(now + timedelta(hours=4)).time(),
+                step=900
+            )
+
         with c5:
-            expiry_date = st.date_input("Expires on (date)", value=now.date())
-            expiry_time = st.time_input("Expires on (time)", value=(now + timedelta(hours=8)).time())
+            expiry_date = st.date_input(
+                "Expires on (date)",
+                value=now.date()
+            )
+            expiry_time = st.time_input(
+                "Expires on (time)",
+                value=(now + timedelta(hours=8)).time(),
+                step=900
+            )
+
         safety = st.checkbox(
             "I confirm this food is safe for consumption, handled per standard food-safety guidelines, and labeled with relevant allergens.",
             value=True,
         )
-        submitted = st.form_submit_button("Publish listing", type="primary", use_container_width=True)
+
+        submitted = st.form_submit_button(
+            "Publish listing",
+            type="primary",
+            use_container_width=True,
+        )
 
         if submitted:
             if not (name and address and safety):

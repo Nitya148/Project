@@ -70,7 +70,6 @@ if view == "Map":
                         </span>
                     </div>
                     </div>""",
-                    unsafe_allow_html=True,
                 )
                 if st.button(f"View →", key=f"map_open_{l['id']}", use_container_width=True):
                     st.session_state["selected_listing"] = l["id"]
@@ -82,7 +81,7 @@ else:
             label, mins = time_until(l["expiry_time"])
             urgent = mins <= 240
             urg_badge = '<span class="badge badge-urgent">Expires soon</span>' if urgent else ""
-            st.markdown(
+            st.html(
                 f"""<div class="listing-card">
                     <img src="{l.get('photo_url','')}" alt=""/>
                     <div style="position:relative;">
@@ -102,7 +101,6 @@ else:
                         </div>
                     </div>
                 </div>""",
-                unsafe_allow_html=True,
             )
             if st.button("Open listing", key=f"open_{l['id']}", use_container_width=True):
                 st.session_state["selected_listing"] = l["id"]

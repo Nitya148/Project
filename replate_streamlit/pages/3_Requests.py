@@ -37,7 +37,7 @@ def render_request(r, role):
     with st.container():
         c1, c2 = st.columns([3, 2])
         with c1:
-            st.markdown(
+            st.html(
                 f"""<div style="background:white;border:1px solid rgba(42,27,36,0.08);border-radius:14px;padding:16px;margin-bottom:12px;">
                 <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:#695A62;">{counterparty}</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:20px;margin-top:4px;">{r['listing_name']}</div>
@@ -47,7 +47,6 @@ def render_request(r, role):
                     <span style="background:{color}22;color:{color};padding:3px 10px;border-radius:999px;font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:0.1em;">{r['status']}</span>
                 </div>
             </div>""",
-                unsafe_allow_html=True,
             )
         with c2:
             if role == "incoming" and r["status"] == "pending":
